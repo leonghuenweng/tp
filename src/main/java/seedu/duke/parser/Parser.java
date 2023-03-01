@@ -20,6 +20,7 @@ public class Parser {
     final private static String COMMAND_PRICE_SHORT = "/p";
     final private static String COMMAND_PRICE_LONG = "/price";
     final private static String MESSAGE_INVALID_COMMAND = "Please enter a valid command!";
+    final private static String MESSAGE_INVALID_EXPENSEID = "Please enter a valid numerical index!";
     final private static String MESSAGE_INVALID_ARGUMENTS = "Please enter the valid argument(s)!";
     final private static String MESSAGE_MISSING_ARGUMENTS = "Please enter the required argument(s)!";
 
@@ -67,8 +68,9 @@ public class Parser {
             throw new MissingArgumentsException(MESSAGE_MISSING_ARGUMENTS);
         }
         String[] argumentsArray = arguments.split(" ", 2);
+        String expenseId = argumentsArray[0];
         try {
-            int expenseId = Integer.parseInt(argumentsArray[0]);
+            int expenseIdInt = Integer.parseInt(expenseId);
             // do something with taskId
         } catch (NumberFormatException e) {
             throw new InvalidArgumentsException(MESSAGE_INVALID_ARGUMENTS);
@@ -95,13 +97,19 @@ public class Parser {
         if (arguments.isEmpty()) {
             throw new MissingArgumentsException(MESSAGE_MISSING_ARGUMENTS);
         }
-        String expenseIdString = arguments.trim().split(" ", 2)[0].trim();
-        try {
-            int expenseId = Integer.parseInt(expenseIdString);
-        } catch (NumberFormatException e) {
-            throw new InvalidArgumentsException(MESSAGE_INVALID_ARGUMENTS);
-        }
         String[] argumentsArray = parseEditArguments(arguments);
+        String expenseId = argumentsArray[0];
+        String description = argumentsArray[1];
+        String category = argumentsArray[2];
+        String price = argumentsArray[3];
+        if (expenseId.isEmpty()) {
+            throw new MissingArgumentsException(MESSAGE_MISSING_ARGUMENTS);
+        }
+        try {
+            int expenseIdInt = Integer.parseInt(argumentsArray[0]);
+        } catch (NumberFormatException e) {
+            throw new InvalidArgumentsException(MESSAGE_INVALID_EXPENSEID);
+        }
 
     }
 
@@ -130,12 +138,12 @@ public class Parser {
 
         Matcher matcher = descriptionPattern.matcher(arguments);
         if (matcher.find()) {
-            description = matcher.group(2);
+            description = matcher.group(0);
         }
 
         matcher = categoryPattern.matcher(arguments);
         if (matcher.find()) {
-            category = matcher.group(1);
+            category = matcher.group(2);
         }
 
         matcher = pricePattern.matcher(arguments);
@@ -146,38 +154,45 @@ public class Parser {
         argumentsArray[0] = description;
         argumentsArray[1] = category;
         argumentsArray[2] = price;
-
         return argumentsArray;
     }
 
     private static String[] parseEditArguments(String arguments) {
+        String expenseId = "";
         String description = "";
         String category = "";
         String price = "";
-        String[] argumentsArray = new String[3];
-        Pattern descriptionPattern = Pattern.compile("(-d | -description)\\s+(\\w+(\\s+\\w+)*)");
-        Pattern categoryPattern = Pattern.compile("(-c | -category)\\s+(\\w+(\\s+\\w+)*)");
-        Pattern pricePattern = Pattern.compile("(-p | -price)\\s+(\\S+)");
+        String[] argumentsArray = new String[4];
+        Pattern expenseIdPattern = Pattern.compile("(\\S+)");
+        Pattern descriptionPattern = Pattern.compile("(-d|-description)\\s+(\\w+(\\s+\\w+)*)");
+        Pattern categoryPattern = Pattern.compile("(-c|-category)\\s+(\\w+(\\s+\\w+)*)");
+        Pattern pricePattern = Pattern.compile("(-p|-price)\\s+(\\S+)");
 
-        Matcher matcher = descriptionPattern.matcher(arguments);
+        Matcher matcher = expenseIdPattern.matcher(arguments);
         if (matcher.find()) {
-            description = matcher.group(1);
+            expenseId = matcher.group(0);
         }
-
+        matcher = descriptionPattern.matcher(arguments);
+        if (matcher.find()) {
+            description = matcher.group(2);
+        }
         matcher = categoryPattern.matcher(arguments);
         if (matcher.find()) {
-            category = matcher.group(1);
+            category = matcher.group(2);
         }
 
         matcher = pricePattern.matcher(arguments);
         if (matcher.find()) {
-            price = matcher.group(1);
+            price = matcher.group(2);
         }
-
-        argumentsArray[0] = description;
-        argumentsArray[1] = category;
-        argumentsArray[2] = price;
-
+        argumentsArray[0] = expenseId;
+        argumentsArray[1] = description;
+        argumentsArray[2] = category;
+        argumentsArray[3] = price;
+        // System.out.println(expenseId);
+        // System.out.println(description);
+        // System.out.println(category);
+        // System.out.println(price);
         return argumentsArray;
     }
 }
