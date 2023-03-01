@@ -68,12 +68,11 @@ public class Parser {
         }
         String[] argumentsArray = arguments.split(" ", 2);
         try {
-            Integer taskId = Integer.parseInt(argumentsArray[0]);
+            int expenseId = Integer.parseInt(argumentsArray[0]);
+            // do something with taskId
         } catch (NumberFormatException e) {
             throw new InvalidArgumentsException(MESSAGE_INVALID_ARGUMENTS);
         }
-
-        // do something with taskId
 
     }
 
@@ -81,17 +80,29 @@ public class Parser {
         if (arguments.isEmpty()) {
             throw new MissingArgumentsException(MESSAGE_MISSING_ARGUMENTS);
         }
-        String description = "";
-        String category = "";
-        String price = "";
-        String[] argumentsArray = parseArguments(arguments);
+        String[] argumentsArray = parseAddArguments(arguments);
+        String description = argumentsArray[0];
+        String category = argumentsArray[1];
+        String price = argumentsArray[2];
+        System.out.println(description);
+        System.out.println(category);
+        System.out.println(price);
+        // do something with arguments
 
     }
 
-    private static void parseEditCommand(String arguments) throws MissingArgumentsException {
+    private static void parseEditCommand(String arguments) throws MissingArgumentsException, InvalidArgumentsException {
         if (arguments.isEmpty()) {
             throw new MissingArgumentsException(MESSAGE_MISSING_ARGUMENTS);
         }
+        String expenseIdString = arguments.trim().split(" ", 2)[0].trim();
+        try {
+            int expenseId = Integer.parseInt(expenseIdString);
+        } catch (NumberFormatException e) {
+            throw new InvalidArgumentsException(MESSAGE_INVALID_ARGUMENTS);
+        }
+        String[] argumentsArray = parseEditArguments(arguments);
+
     }
 
     private static void parseViewCommand(String arguments) throws MissingArgumentsException {
@@ -100,14 +111,53 @@ public class Parser {
         }
     }
 
-    private static String[] parseArguments(String arguments) {
+    /**
+     * Returns a string array of length 3, containing the description, category and
+     * price respectively.
+     * 
+     * @param arguments User arguments after the command.
+     * @return String[] Array containing description, category and price
+     *         respectively.
+     */
+    private static String[] parseAddArguments(String arguments) {
         String description = "";
         String category = "";
         String price = "";
         String[] argumentsArray = new String[3];
         Pattern descriptionPattern = Pattern.compile("(\\w+(\\s+\\w+)*)");
-        Pattern categoryPattern = Pattern.compile("-c\\s+(\\w+(\\s+\\w+)*)");
-        Pattern pricePattern = Pattern.compile("-p\\s+(\\S+)");
+        Pattern categoryPattern = Pattern.compile("(-c|-category)\\s+(\\w+(\\s+\\w+)*)");
+        Pattern pricePattern = Pattern.compile("(-p|-price)\\s+(\\S+)");
+
+        Matcher matcher = descriptionPattern.matcher(arguments);
+        if (matcher.find()) {
+            description = matcher.group(2);
+        }
+
+        matcher = categoryPattern.matcher(arguments);
+        if (matcher.find()) {
+            category = matcher.group(1);
+        }
+
+        matcher = pricePattern.matcher(arguments);
+        if (matcher.find()) {
+            price = matcher.group(2);
+        }
+
+        argumentsArray[0] = description;
+        argumentsArray[1] = category;
+        argumentsArray[2] = price;
+
+        return argumentsArray;
+    }
+
+    private static String[] parseEditArguments(String arguments) {
+        String description = "";
+        String category = "";
+        String price = "";
+        String[] argumentsArray = new String[3];
+        Pattern descriptionPattern = Pattern.compile("(-d | -description)\\s+(\\w+(\\s+\\w+)*)");
+        Pattern categoryPattern = Pattern.compile("(-c | -category)\\s+(\\w+(\\s+\\w+)*)");
+        Pattern pricePattern = Pattern.compile("(-p | -price)\\s+(\\S+)");
 
         Matcher matcher = descriptionPattern.matcher(arguments);
         if (matcher.find()) {
