@@ -2,6 +2,9 @@ package seedu.duke;
 
 import java.util.Scanner;
 
+import seedu.duke.exceptions.InvalidCommandException;
+import seedu.duke.parser.Parser;
+
 public class Duke {
     /**
      * Main entry-point for the java.duke.Duke application.
@@ -13,9 +16,15 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("What is your name?");
-
         Scanner in = new Scanner(System.in);
-        System.out.println("Hello " + in.nextLine());
+        while (in.hasNextLine()) {
+            String userInput = in.nextLine();
+            try {
+                Parser.parseUserInput(userInput);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
     }
 }
