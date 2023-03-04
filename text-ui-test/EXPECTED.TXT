@@ -8,5 +8,4 @@ Welcome to
 
 How may I help you?
 
-James Gosling
 Please enter a valid command!
