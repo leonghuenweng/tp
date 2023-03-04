@@ -2,7 +2,6 @@ package seedu.duke;
 
 import java.util.Scanner;
 
-import seedu.duke.exceptions.InvalidCommandException;
 import seedu.duke.parser.Parser;
 
 public class Duke {

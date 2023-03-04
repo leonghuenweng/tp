@@ -9,16 +9,16 @@ import seedu.duke.exceptions.MissingArgumentsException;
 
 public class Parser {
 
-    final private static String COMMAND_ADD = "/add";
-    final private static String COMMAND_VIEW = "/view";
-    final private static String COMMAND_EDIT = "/edit";
-    final private static String COMMAND_DELETE = "/delete";
-    final private static String COMMAND_HELP = "/help";
-    final private static String COMMAND_BYE = "/bye";
-    final private static String MESSAGE_INVALID_COMMAND = "Please enter a valid command!";
-    final private static String MESSAGE_INVALID_ID = "Please enter a valid numerical index!";
-    final private static String MESSAGE_INVALID_ARGUMENTS = "Please enter the valid argument(s)!";
-    final private static String MESSAGE_MISSING_ARGUMENTS = "Please enter the required argument(s)!";
+    private static final String COMMAND_ADD = "/add";
+    private static final String COMMAND_VIEW = "/view";
+    private static final String COMMAND_EDIT = "/edit";
+    private static final String COMMAND_DELETE = "/delete";
+    private static final String COMMAND_HELP = "/help";
+    private static final String COMMAND_BYE = "/bye";
+    private static final String MESSAGE_INVALID_COMMAND = "Please enter a valid command!";
+    private static final String MESSAGE_INVALID_ID = "Please enter a valid numerical index!";
+    private static final String MESSAGE_INVALID_ARGUMENTS = "Please enter the valid argument(s)!";
+    private static final String MESSAGE_MISSING_ARGUMENTS = "Please enter the required argument(s)!";
 
     /**
      * @param userInput The entire string of user input.
