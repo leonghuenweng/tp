@@ -34,25 +34,25 @@ public class Parser {
         String command = userInputArray[0].toLowerCase();
         String arguments = userInput.replaceFirst(command, "").trim();
         switch (command) {
-            case COMMAND_ADD:
-                parseAddCommand(arguments);
-                break;
-            case COMMAND_VIEW:
-                parseViewCommand(arguments);
-                break;
-            case COMMAND_EDIT:
-                parseEditCommand(arguments);
-                break;
-            case COMMAND_DELETE:
-                parseDeleteCommand(arguments);
-                break;
-            case COMMAND_HELP:
-                parseHelpCommand();
-                break;
-            case COMMAND_BYE:
-                parseByeCommand();
-            default:
-                throw new InvalidCommandException(MESSAGE_INVALID_COMMAND);
+        case COMMAND_ADD:
+            parseAddCommand(arguments);
+            break;
+        case COMMAND_VIEW:
+            parseViewCommand(arguments);
+            break;
+        case COMMAND_EDIT:
+            parseEditCommand(arguments);
+            break;
+        case COMMAND_DELETE:
+            parseDeleteCommand(arguments);
+            break;
+        case COMMAND_HELP:
+            parseHelpCommand();
+            break;
+        case COMMAND_BYE:
+            parseByeCommand();
+        default:
+            throw new InvalidCommandException(MESSAGE_INVALID_COMMAND);
         }
     }
 
