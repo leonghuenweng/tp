@@ -15,15 +15,19 @@ public class Parser {
     final private static String COMMAND_DELETE = "/delete";
     final private static String COMMAND_HELP = "/help";
     final private static String COMMAND_BYE = "/bye";
-    final private static String COMMAND_CATEGORY_SHORT = "/c";
-    final private static String COMMAND_CATEGORY_LONG = "/category";
-    final private static String COMMAND_PRICE_SHORT = "/p";
-    final private static String COMMAND_PRICE_LONG = "/price";
     final private static String MESSAGE_INVALID_COMMAND = "Please enter a valid command!";
-    final private static String MESSAGE_INVALID_EXPENSEID = "Please enter a valid numerical index!";
+    final private static String MESSAGE_INVALID_ID = "Please enter a valid numerical index!";
     final private static String MESSAGE_INVALID_ARGUMENTS = "Please enter the valid argument(s)!";
     final private static String MESSAGE_MISSING_ARGUMENTS = "Please enter the required argument(s)!";
 
+    /**
+     * @param userInput The entire string of user input.
+     * @throws InvalidCommandException   If command entered by user is not
+     *                                   recognisable.
+     * @throws InvalidArgumentsException If arguments following command is in
+     *                                   incorrect format.
+     * @throws MissingArgumentsException If required arguments are missing.
+     */
     public static void parseUserInput(String userInput)
             throws InvalidCommandException, InvalidArgumentsException, MissingArgumentsException {
         String[] userInputArray = userInput.trim().split(" ", 2);
@@ -62,6 +66,12 @@ public class Parser {
         ;
     }
 
+    /**
+     * @param arguments User arguments entered after the command.
+     * @throws InvalidArgumentsException If ID entered is out of range, or not in
+     *                                   integer format.
+     * @throws MissingArgumentsException If required ID is not entered.
+     */
     private static void parseDeleteCommand(String arguments)
             throws InvalidArgumentsException, MissingArgumentsException {
         if (arguments.isEmpty()) {
@@ -73,7 +83,7 @@ public class Parser {
             int expenseIdInt = Integer.parseInt(expenseId);
             // do something with taskId
         } catch (NumberFormatException e) {
-            throw new InvalidArgumentsException(MESSAGE_INVALID_ARGUMENTS);
+            throw new InvalidArgumentsException(MESSAGE_INVALID_ID);
         }
 
     }
@@ -86,13 +96,19 @@ public class Parser {
         String description = argumentsArray[0];
         String category = argumentsArray[1];
         String price = argumentsArray[2];
-        System.out.println(description);
-        System.out.println(category);
-        System.out.println(price);
+        // System.out.println(description);
+        // System.out.println(category);
+        // System.out.println(price);
         // do something with arguments
 
     }
 
+    /**
+     * @param arguments User arguments entered after the command.
+     * @throws MissingArgumentsException If required ID is not entered.
+     * @throws InvalidArgumentsException If ID entered is out of range, or not in
+     *                                   integer format.
+     */
     private static void parseEditCommand(String arguments) throws MissingArgumentsException, InvalidArgumentsException {
         if (arguments.isEmpty()) {
             throw new MissingArgumentsException(MESSAGE_MISSING_ARGUMENTS);
@@ -108,14 +124,23 @@ public class Parser {
         try {
             int expenseIdInt = Integer.parseInt(argumentsArray[0]);
         } catch (NumberFormatException e) {
-            throw new InvalidArgumentsException(MESSAGE_INVALID_EXPENSEID);
+            throw new InvalidArgumentsException(MESSAGE_INVALID_ID);
         }
 
     }
 
-    private static void parseViewCommand(String arguments) throws MissingArgumentsException {
+    private static void parseViewCommand(String arguments) throws InvalidArgumentsException {
         if (arguments.isEmpty()) {
-            throw new MissingArgumentsException(MESSAGE_MISSING_ARGUMENTS);
+            // list all commands;
+            return;
+        }
+        String[] argumentsArray = arguments.split(" ", 2);
+        String viewCount = argumentsArray[0];
+        try {
+            int viewCountInt = Integer.parseInt(argumentsArray[0]);
+            // view tasks.
+        } catch (NumberFormatException e) {
+            throw new InvalidArgumentsException(MESSAGE_INVALID_ID);
         }
     }
 
@@ -123,7 +148,7 @@ public class Parser {
      * Returns a string array of length 3, containing the description, category and
      * price respectively.
      * 
-     * @param arguments User arguments after the command.
+     * @param arguments User arguments entered after the command.
      * @return String[] Array containing description, category and price
      *         respectively.
      */
