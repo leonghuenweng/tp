@@ -51,6 +51,7 @@ public class Parser {
             break;
         case COMMAND_BYE:
             parseByeCommand();
+            break;
         default:
             throw new InvalidCommandException(MESSAGE_INVALID_COMMAND);
         }
