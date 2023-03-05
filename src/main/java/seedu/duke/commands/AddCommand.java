@@ -23,6 +23,9 @@ public class AddCommand {
         case TYPE_EXPENSE:
             addExpense(description, category, amount);
             break;
+
+        default:
+            return;
         }
     }
 

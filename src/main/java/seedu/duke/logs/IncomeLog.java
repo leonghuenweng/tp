@@ -15,14 +15,5 @@ public class IncomeLog {
     public void add(Income incomeObj) {
         incomeList.add(incomeObj);
     }
-
-//    public Task delete(int taskId) throws InvalidInputIDException {
-//        boolean isInvalidID = taskId < 1 || taskId > tasks.size();
-//        if (isInvalidID) {
-//            throw new InvalidInputIDException();
-//        }
-//        Task deletedTask = tasks.get(taskId - 1);
-//        tasks.remove(taskId - 1);
-//        return deletedTask;
-//    }
+    
 }

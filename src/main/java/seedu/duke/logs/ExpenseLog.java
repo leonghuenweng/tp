@@ -1,6 +1,5 @@
 package seedu.duke.logs;
 import seedu.duke.entries.expenses.Expense;
-import seedu.duke.entries.income.Income;
 
 import java.util.ArrayList;
 
