@@ -2,24 +2,28 @@ package seedu.duke;
 
 import java.util.Scanner;
 
-import seedu.duke.constants.MessageConstants;
+import seedu.duke.constants.UIConstants;
 import seedu.duke.parser.Parser;
+import seedu.duke.ui.UI;
 
 public class Duke {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
     public static void main(String[] args) {
-        System.out.println(MessageConstants.MESSAGE_WELCOME);
+        UI ui = new UI();
         Scanner in = new Scanner(System.in);
-        while (in.hasNextLine()) {
+        do {
+            ui.printAwaitUserInput();
             String userInput = in.nextLine();
+            ui.printLine();
             try {
                 Parser.parseUserInput(userInput);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                ui.print(e.getMessage() + UIConstants.NEWLINE);
+                ui.printLine();
             }
-        }
-
+            // TODO: condition to be replaced when exit command is implemented
+        } while (true);
     }
 }
