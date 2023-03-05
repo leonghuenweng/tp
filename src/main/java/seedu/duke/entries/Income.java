@@ -1,12 +1,10 @@
-package seedu.duke.entries.income;
+package seedu.duke.entries;
 
 import seedu.duke.entries.Entry;
 
 public class Income extends Entry {
-    private String description;
-    private String amount;
-
     public Income (String description, String amount){
-        super(description, amount);
+        super(description, amount, EntryEnum.INCOME);
     }
+
 }
