@@ -2,20 +2,30 @@ package seedu.duke;
 
 import java.util.Scanner;
 
+import seedu.duke.parser.Parser;
+
 public class Duke {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("What is your name?");
+        String logo = " _____           _        _   _____      _\n" +
+                "|  __ \\         | |      | | |  __ \\    | |\n" +
+                "| |__) |__   ___| | _____| |_| |__) |_ _| |\n" +
+                "|  ___/ _ \\ / __| |/ / _ \\ __|  ___/ _` | |\n" +
+                "| |  | (_) | (__|   <  __/ |_| |  | (_| | |\n" +
+                "|_|   \\___/ \\___|_|\\_\\___|\\__|_|   \\__,_|_|\n\n";
 
+        System.out.println("Welcome to\n" + logo + "How may I help you?\n");
         Scanner in = new Scanner(System.in);
-        System.out.println("Hello " + in.nextLine());
+        while (in.hasNextLine()) {
+            String userInput = in.nextLine();
+            try {
+                Parser.parseUserInput(userInput);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
     }
 }
