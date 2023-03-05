@@ -5,11 +5,11 @@ import seedu.duke.constants.EntryConstants;
 public class Entry {
     private Category category;
     private String description;
-    private double price;
+    private double amount;
 
-    public Entry(String description, double price, Category category) {
+    public Entry(String description, double amount, Category category) {
         this.description = description;
-        this.price = price;
+        this.amount = amount;
         this.category = category;
     }
 
@@ -44,8 +44,8 @@ public class Entry {
         return description;
     }
 
-    public double getPrice() {
-        return price;
+    public double getAmount() {
+        return amount;
     }
 
     public void setCategory(Category category) {
@@ -56,7 +56,7 @@ public class Entry {
         this.description = description;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 }

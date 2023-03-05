@@ -27,6 +27,7 @@ public class EntryLog {
 
     /**
      * Filter entries by category
+     *
      * @param category Category to be filtered
      * @return List of entries matching category
      */
@@ -36,8 +37,9 @@ public class EntryLog {
 
     /**
      * Filter entries by category
+     *
      * @param category Category to be filtered
-     * @param entries List of entries to match
+     * @param entries  List of entries to match
      * @return List of entries matching category
      */
     public static List<Entry> filterCategory(Category category, List<Entry> entries) {
@@ -49,6 +51,7 @@ public class EntryLog {
 
     /**
      * Filter entries by description or category of entries. Regular expressions are supported.
+     *
      * @param query Regex to be filtered (case-insensitive)
      * @return List of entries matching query
      */
@@ -58,7 +61,8 @@ public class EntryLog {
 
     /**
      * Filter entries by description or category of entries. Regular expressions are supported.
-     * @param query Regex to be filtered (case-insensitive)
+     *
+     * @param query   Regex to be filtered (case-insensitive)
      * @param entries List of entries to match
      * @return List of entries matching query
      */
@@ -76,28 +80,30 @@ public class EntryLog {
     }
 
     /**
-     * Filter items by price.
-     * @param minPrice Minimum price of entry
-     * @param maxPrice Maximum price of entry
-     * @return List of entries within range of given price
+     * Filter items by amount.
+     *
+     * @param minAmount Minimum amount of entry
+     * @param maxAmount Maximum amount of entry
+     * @return List of entries within range of given amount
      */
-    public List<Entry> filterPrice(double minPrice, double maxPrice) {
-        return filterPrice(minPrice,  maxPrice, entries);
+    public List<Entry> filterAmount(double minAmount, double maxAmount) {
+        return filterAmount(minAmount, maxAmount, entries);
     }
 
     /**
      * Filter items by price.
-     * @param minPrice Minimum price of entry
-     * @param maxPrice Maximum price of entry
-     * @param entries List of entries to match
-     * @return List of entries within range of given price
+     *
+     * @param minAmount Minimum amount of entry
+     * @param maxAmount Maximum amount of entry
+     * @param entries   List of entries to match
+     * @return List of entries within range of given amount
      */
-    public static List<Entry> filterPrice(double minPrice, double maxPrice, List<Entry> entries) {
+    public static List<Entry> filterAmount(double minAmount, double maxAmount, List<Entry> entries) {
         return entries
                 .stream()
                 .filter((entry -> {
-                    boolean isBelowMin = Double.compare(entry.getPrice(), minPrice) < 0;
-                    boolean isAboveMax = Double.compare(entry.getPrice(), maxPrice) > 0;
+                    boolean isBelowMin = Double.compare(entry.getAmount(), minAmount) < 0;
+                    boolean isAboveMax = Double.compare(entry.getAmount(), maxAmount) > 0;
                     boolean isWithinRange = !isBelowMin && !isAboveMax;
                     return isWithinRange;
                 }))
