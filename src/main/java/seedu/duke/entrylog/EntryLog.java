@@ -66,12 +66,12 @@ public class EntryLog {
         Pattern pattern = Pattern.compile(query, Pattern.CASE_INSENSITIVE);
         return entries
                 .stream()
-                .filter((entry -> {
+                .filter(entry -> {
                     Matcher descriptionMatcher = pattern.matcher(entry.getDescription());
                     Matcher categoryMatcher = pattern.matcher(entry.getCategoryString());
                     boolean isMatch = descriptionMatcher.find() || categoryMatcher.find();
                     return isMatch;
-                }))
+                })
                 .collect(Collectors.toList());
     }
 
