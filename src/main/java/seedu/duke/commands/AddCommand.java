@@ -14,20 +14,20 @@ public class AddCommand {
     public static void addEntry(String description, String category, String amount){
         Entry newEntry;
         switch(category){
-            case CATEGORY_FOOD:
-                newEntry = new Food(description, amount);
-                break;
+        case CATEGORY_FOOD:
+            newEntry = new Food(description, amount);
+            break;
 
-            case CATEGORY_OTHER:
-                newEntry = new Other(description, amount);
-                break;
+        case CATEGORY_OTHER:
+            newEntry = new Other(description, amount);
+            break;
 
-            case CATEGORY_INCOME:
-                newEntry = new Income(description, amount);
-                break;
+        case CATEGORY_INCOME:
+            newEntry = new Income(description, amount);
+            break;
 
-            default:
-                return;
+        default:
+            return;
         }
         EntryLog.add(newEntry);
     }
