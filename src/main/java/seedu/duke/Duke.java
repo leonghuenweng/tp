@@ -12,6 +12,7 @@ public class Duke {
      */
     public static void main(String[] args) {
         UI ui = new UI();
+        ui.printWelcome();
         Scanner in = new Scanner(System.in);
         do {
             ui.printAwaitUserInput();
