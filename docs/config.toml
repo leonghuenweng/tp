@@ -1,0 +1,4 @@
+baseURL = 'https://ay2223s2-cs2113-w15-2.github.io/tp/'
+languageCode = 'en-sg'
+title = 'AY2223S2-CS2113-W15-2'
+theme = 'hugo-book'
