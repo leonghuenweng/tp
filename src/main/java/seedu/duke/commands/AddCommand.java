@@ -4,14 +4,14 @@ import seedu.duke.entries.Entry;
 import seedu.duke.entries.Food;
 import seedu.duke.entries.Income;
 import seedu.duke.entries.Other;
-import seedu.duke.logs.EntryLog;
+import seedu.duke.entrylog.EntryLog;
 
 public class AddCommand {
     private static final String CATEGORY_FOOD = "food";
     private static final String CATEGORY_OTHER = "other";
     private static final String CATEGORY_INCOME = "income";
 
-    public static void addEntry(String description, String category, String amount){
+    public static void addEntry(String description, String category, double amount){
         Entry newEntry;
         switch(category){
         case CATEGORY_FOOD:
@@ -29,6 +29,7 @@ public class AddCommand {
         default:
             return;
         }
+        // TODO: implement add to EntryLog instance
         EntryLog.add(newEntry);
     }
 

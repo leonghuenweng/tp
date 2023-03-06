@@ -1,5 +1,8 @@
 package seedu.duke.entrylog;
 
+import seedu.duke.entries.Category;
+import seedu.duke.entries.Entry;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
