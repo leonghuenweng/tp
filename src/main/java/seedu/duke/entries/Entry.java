@@ -1,6 +1,7 @@
-package seedu.duke.entrylog;
+package seedu.duke.entries;
 
 import seedu.duke.constants.EntryConstants;
+import seedu.duke.entries.Category;
 
 public class Entry {
     private Category category;
