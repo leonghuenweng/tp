@@ -2,30 +2,29 @@ package seedu.duke;
 
 import java.util.Scanner;
 
+import seedu.duke.constants.UIConstants;
 import seedu.duke.parser.Parser;
+import seedu.duke.ui.UI;
 
 public class Duke {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
     public static void main(String[] args) {
-        String logo = " _____           _        _   _____      _\n" +
-                "|  __ \\         | |      | | |  __ \\    | |\n" +
-                "| |__) |__   ___| | _____| |_| |__) |_ _| |\n" +
-                "|  ___/ _ \\ / __| |/ / _ \\ __|  ___/ _` | |\n" +
-                "| |  | (_) | (__|   <  __/ |_| |  | (_| | |\n" +
-                "|_|   \\___/ \\___|_|\\_\\___|\\__|_|   \\__,_|_|\n\n";
-
-        System.out.println("Welcome to\n" + logo + "How may I help you?\n");
+        UI ui = new UI();
+        ui.printWelcome();
         Scanner in = new Scanner(System.in);
-        while (in.hasNextLine()) {
+        do {
+            ui.printAwaitUserInput();
             String userInput = in.nextLine();
+            ui.printLine();
             try {
                 Parser.parseUserInput(userInput);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                ui.print(e.getMessage() + UIConstants.NEWLINE);
+                ui.printLine();
             }
-        }
-
+            // TODO: condition to be replaced when exit command is implemented
+        } while (true);
     }
 }
