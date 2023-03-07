@@ -37,6 +37,18 @@ public class UI {
                 MessageConstants.NEWLINE;
     }
 
+    /**
+     * formats the details of an entry object into a string
+     * @param description of entry from Entry log
+     * @param price of entry from Entry log
+     * @param category of entry from Entry log
+     * @param ID of entry from Entry log
+     * @return string to be displayed upon calling /view command
+     */
+    public String formatViewEntries(String description, double price, String category, int ID){
+        return "<"+Integer.toString(ID)+">: "+description+" ("+category+") - $"+formatPrice(price);
+    }
+
     public void print(String output) {
         System.out.print(output);
     }

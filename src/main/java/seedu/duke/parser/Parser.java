@@ -139,7 +139,9 @@ public class Parser {
         String viewCount = argumentsArray[0];
         try {
             int viewCountInt = Integer.parseInt(argumentsArray[0]);
+            int numberOfDisplayedEntries=0;
             // view tasks.
+            for(int count=0;count<)
         } catch (NumberFormatException e) {
             throw new InvalidArgumentsException(MESSAGE_INVALID_ID);
         }
