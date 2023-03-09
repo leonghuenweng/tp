@@ -2,8 +2,10 @@ package seedu.duke.ui;
 
 import seedu.duke.constants.MessageConstants;
 import seedu.duke.constants.UIConstants;
+import seedu.duke.entries.Entry;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class UI {
     /**
@@ -38,15 +40,30 @@ public class UI {
     }
 
     /**
-     * formats the details of an entry object into a string
-     * @param description of entry from Entry log
-     * @param price of entry from Entry log
-     * @param category of entry from Entry log
-     * @param ID of entry from Entry log
-     * @return string to be displayed upon calling /view command
+     * returns a string based on the details of the Entry object and entryID entered
+     *
+     * @param entry   entry Object to be formatted.
+     * @param entryID ID of the entry Object.
+     * @return String of details about the entry
      */
-    public String formatViewEntries(String description, double price, String category, int ID){
-        return "<"+Integer.toString(ID)+">: "+description+" ("+category+") - $"+formatPrice(price);
+    private String formatViewEntries(Entry entry, int entryID) {
+        String description = entry.getDescription();
+        double price = entry.getAmount();
+        String category = entry.getCategoryString();
+        return "<" + Integer.toString(entryID) + ">: " + description +
+                " (" + category + ") - $" + formatPrice(price);
+    }
+
+    public void printEntriesToBeViewed(List<Entry> entryList, String category) {
+        StringBuilder finalString = new StringBuilder();
+        finalString.append("These are the latest " + entryList.size() + " entries from the " + category +
+                " category.\n");
+
+        for(int index = 0; index < entryList.size(); index ++){
+            String formattedEntry = formatViewEntries(entryList.get(index),index+1);
+            finalString.append(formattedEntry + "\n");
+        }
+        System.out.print(finalString.toString());
     }
 
     public void print(String output) {
@@ -69,13 +86,13 @@ public class UI {
     // TODO: Add expenditure edited
     public void printExpenditureAdded(String description, double priceDouble, String category) {
         print(MessageConstants.MESSAGE_EXPENDITURE_ADDED
-                      + formatExpenditure(description, priceDouble, category));
+                + formatExpenditure(description, priceDouble, category));
         printLine();
     }
 
     public void printExpenditureDeleted(String description, double priceDouble, String category) {
         print(MessageConstants.MESSAGE_EXPENDITURE_DELETED
-                      + formatExpenditure(description, priceDouble, category));
+                + formatExpenditure(description, priceDouble, category));
         printLine();
     }
 

@@ -3,9 +3,12 @@ package seedu.duke.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.duke.commands.Command;
+import seedu.duke.entries.Category;
 import seedu.duke.exceptions.InvalidArgumentsException;
 import seedu.duke.exceptions.InvalidCommandException;
 import seedu.duke.exceptions.MissingArgumentsException;
+import seedu.duke.commands.ViewCommand;
 
 public class Parser {
 
@@ -28,7 +31,7 @@ public class Parser {
      *                                   incorrect format.
      * @throws MissingArgumentsException If required arguments are missing.
      */
-    public static void parseUserInput(String userInput)
+    public static Command parseUserInput(String userInput)
             throws InvalidCommandException, InvalidArgumentsException, MissingArgumentsException {
         String[] userInputArray = userInput.trim().split(" ", 2);
         String command = userInputArray[0].toLowerCase();
@@ -38,8 +41,7 @@ public class Parser {
             parseAddCommand(arguments);
             break;
         case COMMAND_VIEW:
-            parseViewCommand(arguments);
-            break;
+            return parseViewCommand(arguments);
         case COMMAND_EDIT:
             parseEditCommand(arguments);
             break;
@@ -55,6 +57,7 @@ public class Parser {
         default:
             throw new InvalidCommandException(MESSAGE_INVALID_COMMAND);
         }
+        return null;
     }
 
     private static void parseByeCommand() {
@@ -130,18 +133,14 @@ public class Parser {
 
     }
 
-    private static void parseViewCommand(String arguments) throws InvalidArgumentsException {
-        if (arguments.isEmpty()) {
-            // list all commands;
-            return;
-        }
+    private static Command parseViewCommand(String arguments) throws InvalidArgumentsException {
         String[] argumentsArray = arguments.split(" ", 2);
         String viewCount = argumentsArray[0];
         try {
             int viewCountInt = Integer.parseInt(argumentsArray[0]);
-            int numberOfDisplayedEntries=0;
-            // view tasks.
-            for(int count=0;count<)
+            Category category = Category.valueOf(argumentsArray[1].substring(3));
+            return new ViewCommand(viewCountInt, category);
+
         } catch (NumberFormatException e) {
             throw new InvalidArgumentsException(MESSAGE_INVALID_ID);
         }
