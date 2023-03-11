@@ -30,7 +30,9 @@ public class AddCommand {
             return;
         }
         // TODO: implement add to EntryLog instance
+
 //        EntryLog.add(newEntry);
+
     }
 
 }

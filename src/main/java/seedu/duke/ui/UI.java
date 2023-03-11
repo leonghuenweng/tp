@@ -7,6 +7,9 @@ import seedu.duke.entries.Entry;
 import java.text.DecimalFormat;
 import java.util.List;
 
+
+import java.text.DecimalFormat;
+
 public class UI {
     /**
      * Converts double into string, adds decimal places if required.
@@ -85,8 +88,8 @@ public class UI {
 
     // TODO: Add expenditure edited
     public void printExpenditureAdded(String description, double priceDouble, String category) {
-        print(MessageConstants.MESSAGE_EXPENDITURE_ADDED
-                + formatExpenditure(description, priceDouble, category));
+        print(MessageConstants.MESSAGE_EXPENDITURE_ADDED +
+                formatExpenditure(description, priceDouble, category));
         printLine();
     }
 

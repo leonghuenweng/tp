@@ -10,6 +10,11 @@ import seedu.duke.exceptions.InvalidCommandException;
 import seedu.duke.exceptions.MissingArgumentsException;
 import seedu.duke.commands.ViewCommand;
 
+import seedu.duke.exceptions.InvalidArgumentsException;
+import seedu.duke.exceptions.InvalidCommandException;
+import seedu.duke.exceptions.MissingArgumentsException;
+
+
 public class Parser {
 
     private static final String COMMAND_ADD = "/add";
@@ -134,13 +139,19 @@ public class Parser {
     }
 
     private static Command parseViewCommand(String arguments) throws InvalidArgumentsException {
+
+//    private static void parseViewCommand(String arguments) throws InvalidArgumentsException {
+//        if (arguments.isEmpty()) {
+//            // list all commands;
+//            return;
+//        }
         String[] argumentsArray = arguments.split(" ", 2);
         String viewCount = argumentsArray[0];
         try {
             int viewCountInt = Integer.parseInt(argumentsArray[0]);
             Category category = Category.valueOf(argumentsArray[1].substring(3));
             return new ViewCommand(viewCountInt, category);
-
+            // view tasks.
         } catch (NumberFormatException e) {
             throw new InvalidArgumentsException(MESSAGE_INVALID_ID);
         }
