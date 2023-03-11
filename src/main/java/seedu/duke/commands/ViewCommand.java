@@ -17,15 +17,23 @@ public class ViewCommand extends Command {
         this.numberOfEntriesToView = numberOfEntriesToView;
     }
 
+    /**
+     *
+     * @param originalEntries list containing all entries in the desired category
+     * @return trimmed list containing the latest "N" number of entries, where N is specified in the view command
+     */
+    private List<Entry> getLatestEntries(List<Entry> originalEntries){
+        List<Entry> latestEntries = originalEntries.subList(originalEntries.size()-this.numberOfEntriesToView,
+                originalEntries.size());
+        return latestEntries;
+    }
+    
     @Override
     public void execute(EntryLog entries) {
-        List<Entry> EntriesInRelevantCategory = entries.filterCategory(this.categoryToView);
-        List<Entry> specifiedNumberOfEntries = null;
-
-        for (int index = 0; index < this.numberOfEntriesToView && index < EntriesInRelevantCategory.size(); index++) {
-            specifiedNumberOfEntries.add(EntriesInRelevantCategory.get(index));
+        List<Entry> relevantEntries = entries.filterCategory(this.categoryToView);
+        if(relevantEntries.size()>this.numberOfEntriesToView){
+            relevantEntries = getLatestEntries(relevantEntries);
         }
-
-        ui.printEntriesToBeViewed(specifiedNumberOfEntries, this.categoryToView.toString());
+        ui.printEntriesToBeViewed(relevantEntries, this.categoryToView.toString());
     }
 }
