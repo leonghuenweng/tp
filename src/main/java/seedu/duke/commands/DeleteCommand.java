@@ -2,13 +2,26 @@ package seedu.duke.commands;
 
 import seedu.duke.entrylog.EntryLog;
 
-public class DeleteCommand {
-    public static void deleteEntry(int entryId){
-        // TODO: implement delete from EntryLog instance
-<<<<<<< HEAD
-        EntryLog.delete(entryId - 1);
-=======
-        // EntryLog.delete(entryId - 1);
->>>>>>> 9b78ad3962a19fc9b1626755f787cf0e08188af4
+/**
+ * Represents the delete feature in PocketPal. Users may specify
+ * the index of the entry to be deleted
+ * e.g., <code>/delete 10</code>
+ */
+public class DeleteCommand extends Command{
+
+    private Integer entryId;
+
+    public DeleteCommand(Integer inputId){
+        this.entryId = inputId - 1;
+    }
+
+    /**
+     * Deletes Entry object from entry log
+     *
+     * @param entries List of entries to delete from
+     */
+    @Override
+    public void execute(EntryLog entries) {
+        entries.delete(entryId);
     }
 }
