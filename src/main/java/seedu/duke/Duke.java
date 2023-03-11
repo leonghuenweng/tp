@@ -3,7 +3,7 @@ package seedu.duke;
 import java.util.Scanner;
 
 import seedu.duke.constants.UIConstants;
-import seedu.duke.entries.Entry;
+// import seedu.duke.entries.Entry;
 import seedu.duke.entrylog.EntryLog;
 import seedu.duke.parser.Parser;
 import seedu.duke.ui.UI;
