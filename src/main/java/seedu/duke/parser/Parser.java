@@ -138,23 +138,23 @@ public class Parser {
 
     }
 
-    private static Command parseViewCommand(String arguments) throws InvalidArgumentsException {
+    private static Command parseViewCommand(String arguments) throws InvalidArgumentsException,
+            MissingArgumentsException {
 
-//    private static void parseViewCommand(String arguments) throws InvalidArgumentsException {
-//        if (arguments.isEmpty()) {
-//            // list all commands;
-//            return;
-//        }
-        String[] argumentsArray = arguments.split(" ", 2);
-        String viewCount = argumentsArray[0];
-        try {
-            int viewCountInt = Integer.parseInt(argumentsArray[0]);
-            Category category = Category.valueOf(argumentsArray[1].substring(3));
-            return new ViewCommand(viewCountInt, category);
-            // view tasks.
-        } catch (NumberFormatException e) {
-            throw new InvalidArgumentsException(MESSAGE_INVALID_ID);
+        if (arguments.isEmpty()) {
+            throw new MissingArgumentsException(MESSAGE_MISSING_ARGUMENTS);
         }
+        else{
+            String[] argumentsArray = arguments.split(" ", 2);
+            try {
+                int viewCountInt = Integer.parseInt(argumentsArray[0]);
+                Category category = Category.valueOf(argumentsArray[1].substring(3));
+                return new ViewCommand(viewCountInt, category);
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentsException(MESSAGE_INVALID_ID);
+            }
+        }
+
     }
 
     /**
