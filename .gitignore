@@ -20,6 +20,10 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
+# Test data
+data/*
+test/*
+
 ### Hugo ###
 # Generated files by hugo
 /docs/public/
