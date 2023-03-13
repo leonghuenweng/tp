@@ -3,6 +3,8 @@ package seedu.duke.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.duke.commands.Command;
+import seedu.duke.commands.ExitCommand;
 import seedu.duke.exceptions.InvalidArgumentsException;
 import seedu.duke.exceptions.InvalidCommandException;
 import seedu.duke.exceptions.MissingArgumentsException;
@@ -28,38 +30,38 @@ public class Parser {
      *                                   incorrect format.
      * @throws MissingArgumentsException If required arguments are missing.
      */
-    public static void parseUserInput(String userInput)
+    public static Command parseUserInput(String userInput)
             throws InvalidCommandException, InvalidArgumentsException, MissingArgumentsException {
         String[] userInputArray = userInput.trim().split(" ", 2);
         String command = userInputArray[0].toLowerCase();
         String arguments = userInput.replaceFirst(command, "").trim();
         switch (command) {
-        case COMMAND_ADD:
-            parseAddCommand(arguments);
-            break;
-        case COMMAND_VIEW:
-            parseViewCommand(arguments);
-            break;
-        case COMMAND_EDIT:
-            parseEditCommand(arguments);
-            break;
-        case COMMAND_DELETE:
-            parseDeleteCommand(arguments);
-            break;
-        case COMMAND_HELP:
-            parseHelpCommand();
-            break;
-        case COMMAND_BYE:
-            parseByeCommand();
-            break;
-        default:
-            throw new InvalidCommandException(MESSAGE_INVALID_COMMAND);
+            case COMMAND_ADD:
+                parseAddCommand(arguments);
+                break;
+            case COMMAND_VIEW:
+                parseViewCommand(arguments);
+                break;
+            case COMMAND_EDIT:
+                parseEditCommand(arguments);
+                break;
+            case COMMAND_DELETE:
+                parseDeleteCommand(arguments);
+                break;
+            case COMMAND_HELP:
+                parseHelpCommand();
+                break;
+            case COMMAND_BYE:
+                return parseByeCommand();
+            default:
+                throw new InvalidCommandException(MESSAGE_INVALID_COMMAND);
         }
+        // to be replaced with return statements in each case.
+        return null;
     }
 
-    private static void parseByeCommand() {
-        // Print bye message
-        ;
+    private static Command parseByeCommand() {
+        return new ExitCommand();
     }
 
     private static void parseHelpCommand() {
@@ -148,10 +150,10 @@ public class Parser {
     /**
      * Returns a string array of length 3, containing the description, category and
      * price respectively.
-     * 
+     *
      * @param arguments User arguments entered after the command.
      * @return String[] Array containing description, category and price
-     *         respectively.
+     * respectively.
      */
     private static String[] parseAddArguments(String arguments) {
         String description = "";
