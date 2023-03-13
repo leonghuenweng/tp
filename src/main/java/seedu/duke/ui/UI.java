@@ -59,16 +59,16 @@ public class UI {
      * message.
      *
      * @param entryList List of entry objects with the user-specified length
-     * @param category String denoting the category requested by the user
+     * @param category  String denoting the category requested by the user
      */
     public void printEntriesToBeViewed(List<Entry> entryList, String category) {
         StringBuilder finalString = new StringBuilder();
         finalString.append("These are the latest " + entryList.size() + " entries from the " + category +
-                " category.\n");
+                " category." + UIConstants.NEWLINE);
 
-        for(int index = 0; index < entryList.size(); index ++){
-            String formattedEntry = formatViewEntries(entryList.get(index),index+1);
-            finalString.append(formattedEntry + "\n");
+        for (int index = 0; index < entryList.size(); index++) {
+            String formattedEntry = formatViewEntries(entryList.get(index), index + 1);
+            finalString.append(formattedEntry + UIConstants.NEWLINE);
         }
         System.out.print(finalString.toString());
     }
