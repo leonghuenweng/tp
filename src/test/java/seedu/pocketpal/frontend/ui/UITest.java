@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import seedu.pocketpal.data.entrylog.EntryLog;
 import seedu.pocketpal.frontend.constants.MessageConstants;
 import seedu.pocketpal.frontend.constants.UIConstants;
 import seedu.pocketpal.data.entry.Category;
@@ -87,6 +88,10 @@ public class UITest {
     @DisplayName("Test methods involving entries")
     class EntryOutputTest {
         private final Entry testEntry = new Entry("Mango juice", 2, Category.FOOD);
+        private final Entry testEntries1 = new Entry("Potato", 3, Category.FOOD);
+        private final Entry testEntries2 = new Entry("Tomato", 2, Category.FOOD);
+        private final Entry testEntries3 = new Entry("Picasso", 3000, Category.FOOD);
+        private final EntryLog testEntries = new EntryLog();
 
         @Test
         void testFloatingPointPadding() {
@@ -99,11 +104,12 @@ public class UITest {
         void testAddExpenditure() {
             ui.printExpenditureAdded(testEntry.getDescription(),
                     testEntry.getAmount(),
-                    testEntry.getCategoryString());
+                    testEntry.getCategoryString(), testEntry.getDateTime());
             assertEquals(MessageConstants.MESSAGE_EXPENDITURE_ADDED
                             + UIUtil.formatExpenditure(testEntry.getDescription(),
                             testEntry.getAmount(),
-                            testEntry.getCategoryString())
+                            testEntry.getCategoryString(),
+                            testEntry.getDateTime())
                             + UIConstants.LINE,
                     outContent.toString());
         }
@@ -112,14 +118,50 @@ public class UITest {
         void testDeleteExpenditure() {
             ui.printExpenditureDeleted(testEntry.getDescription(),
                     testEntry.getAmount(),
-                    testEntry.getCategoryString());
+                    testEntry.getCategoryString(),
+                    testEntry.getDateTime());
             assertEquals(MessageConstants.MESSAGE_EXPENDITURE_DELETED
                             + UIUtil.formatExpenditure(testEntry.getDescription(),
                             testEntry.getAmount(),
-                            testEntry.getCategoryString())
+                            testEntry.getCategoryString(),
+                            testEntry.getDateTime())
                             + UIConstants.LINE,
                     outContent.toString());
         }
-    }
 
+        @Test
+        void testEditExpenditure(){
+            ui.printExpenditureEdited(testEntry);
+            assertEquals(MessageConstants.MESSAGE_EXPENDITURE_EDITED
+                            + UIUtil.formatExpenditure(testEntry.getDescription(),
+                            testEntry.getAmount(),
+                            testEntry.getCategoryString(),
+                            testEntry.getDateTime())
+                            + UIConstants.LINE,
+                    outContent.toString());
+        }
+
+        @Test
+        void testViewExpenditure(){
+            testEntries.addEntry(testEntries1);
+            testEntries.addEntry(testEntries2);
+            testEntries.addEntry(testEntries3);
+
+            ui.printEntriesToBeViewed(testEntries);
+
+            StringBuilder expectedString = new StringBuilder();
+            expectedString.append("These are the latest ")
+                    .append(testEntries.getSize())
+                    .append(" entries.")
+                    .append(System.lineSeparator());
+
+            for (int index = 1; index <= testEntries.getSize(); index++) {
+                String formattedEntry = ui.formatViewEntries(testEntries.getEntry(index), index);
+                expectedString.append(formattedEntry)
+                        .append(System.lineSeparator());}
+
+            expectedString.append(UIConstants.LINE);
+            assertEquals(expectedString.toString(), outContent.toString());
+        }
+    }
 }

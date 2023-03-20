@@ -25,7 +25,7 @@ public class UIUtil {
      * @param category    Category of expenditure
      * @return Formatted expenditure string
      */
-    public static String formatExpenditure(String description, double price, String category) {
+    public static String formatExpenditure(String description, double price, String category, String dateTime) {
         return MessageConstants.DESCRIPTION +
                 description +
                 MessageConstants.NEWLINE +
@@ -34,6 +34,8 @@ public class UIUtil {
                 MessageConstants.NEWLINE +
                 MessageConstants.CATEGORY +
                 category +
-                MessageConstants.NEWLINE;
+                MessageConstants.NEWLINE +
+                dateTime +
+                MessageConstants.NEWLINE ;
     }
 }
