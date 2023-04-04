@@ -430,7 +430,7 @@ public class Parser {
         if (!priceMaxStr.isEmpty()) {
             checkIfPriceValid(priceMaxStr);
         } else {
-            priceMaxStr = Integer.toString(Integer.MAX_VALUE);
+            priceMaxStr = Double.toString(Double.MAX_VALUE);
         }
         Double priceMinDouble = Double.parseDouble(priceMinStr);
         Double priceMaxDouble = Double.parseDouble(priceMaxStr);
