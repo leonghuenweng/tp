@@ -143,13 +143,18 @@ Displays a list of your current expenditure.
 Format: `/view [COUNT] [-c | -category CATEGORY] [-p | -price PRICE_MIN] [-p | -price PRICE_MAX]
 [<-sd | -startdate START_DATE -ed | -enddate END_DATE>]`
 
-- `COUNT` must be a whole number. If not specified, all the expenditures will be listed.
+- `COUNT` refers to the latest N entries made by the user.
+  - For example, `/view 20` means "display the latest 20 entries."
+  - This argument must be a whole number. 
+  - If not specified, all the expenditures will be listed.
+  - If **count > total number of entries recorded**, all entries will be displayed.
 - `CATEGORY` must be a supported category. If not specified, expenditures from all categories will be listed.
 - `PRICE_MIN`, `PRICE_MAX` must be more than 0. If `PRICE_MAX` is not specified, all expenses with a higher price than
   `PRICE_MIN` price will be displayed. The first price entered must be less than that on the
   right. i.e. **MIN_PRICE should be entered before MAX_PRICE.**
-- `START_DATE`, `END_DATE` must be in `dd/MM/yy` format. **Both flags are required if user wishes to use this
-  filter feature.**
+- `START_DATE`, `END_DATE` must be in `dd/MM/yy` format. 
+  - **Both flags are required if user wishes to use this filter feature.**
+  - if unspecified, the earliest entries to the latest entries will be displayed.
 
 Example of usage:
 
@@ -204,6 +209,17 @@ These are the categories currently supported by PocketPal:
 |   /edit | /edit <EXPENSE_ID> [-c &#124; -category NEW_CATEGORY] [-p &#124; -price NEW_PRICE] [-d &#124; -description NEW_DESC]                                                     |
 | /delete | /delete <EXPENSE_ID>                                                                                                                                                     |
 |   /help | /help                                                                                                                                                                    |
+
+*warning 1* :
+for commands that require inputs for different flags, when multiple inputs are supplied to the same flag, the
+command will only interpret the **first** / **leftmost** input. Refer to the examples below:
+
+`/edit 7 -p 5.5 -p 6.6` will be interpreted as `/edit 7 -p 5.5`
+
+`/add -p 1300 -p 200 -c Personal -d Apple Macbook Air -d Apple watch` will be interpreted as `/add -p 1300 -c Personal
+-d Apple Macbook Air`
+
+*warning 2* : unless otherwise specified, all inputs consisting of **ONLY WHITESPACES** will trigger an error message.
 
 <!-- @@author -->
 
