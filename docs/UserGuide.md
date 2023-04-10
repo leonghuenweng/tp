@@ -229,14 +229,25 @@ Note:
 Note:
 
 - `start_date`, `end_date` must be in `dd/MM/yy` format.
-  - *warning*: users are advised to set start date and end date parameters with a maximum interval of 5 years. This is
-    because of the
-    [implementation of SimpleDateTime](https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html).
 
 - Both flags are **required** if user wishes to use this
   option.
 - `start_date` should not be after `end_date`.
-- If both specified dates are the same, the expenses on that date will be listed.
+   - Note: Since both dates are defined in `dd/MM/yy` format, PocketPal assumes the first 2 digits of the year are equal.
+   Hence, if the user specifies the date range as 
+   
+     `-sd 22/10/99 -ed 22/12/00`
+   
+     It will be interpreted as 
+
+     `-sd 22/10/2099 -ed 22/12/2000`
+
+     instead of 
+
+     `-sd 22/10/1999 -ed 22/12/2000` .
+
+     Since all dateTimes are initiated at the time of creation, it is unlikely that users will need to query entries made between the 90's to today. This is because PocketPal has just been created this year.More information about SimpleDateTime implementation can be found [here](https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html).
+- If both specified dates are the same, all expenses in that day will be listed.
 
 Order of options are **interchangeable**.
 
